@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import './App.css'; 
+import PropertyCard from './PropertyCard';
+import './PropertyCard.css';
+
 
 function App() {
+  const [properties,setproperties] = useState([]) 
+  const getproperties = () => {
+    fetch("http://localhost:3000/properties")
+    .then(res =>res.json())
+    .then(data =>{
+      console.log(data)
+      setproperties(data)
+    } )
+  }
+useEffect(()=>{
+  getproperties()
+},[] )
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="property-card-container">
+        {/* {properties.map(property => (
+          <PropertyCard key={property.id} property={property} />
+        ))} */}
+      </div>
     </div>
   );
 }
+
 
 export default App;
